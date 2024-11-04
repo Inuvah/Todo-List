@@ -1,0 +1,11 @@
+{
+    "reminders": [
+        {
+            "title": "First reminder",
+            "time": "10/10/2010",
+            "description": "hulabula",
+            "priority": 1,
+            "id": 1
+        }
+    ]
+}
