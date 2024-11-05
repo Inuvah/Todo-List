@@ -1,11 +1,18 @@
 {
-    "reminders": [
-        {
-            "title": "First reminder",
-            "time": "10/10/2010",
-            "description": "hulabula",
-            "priority": 1,
-            "id": 1
-        }
-    ]
+  "reminders": [
+    {
+      "id": "1e54",
+      "title": "wow",
+      "description": "WHAT",
+      "time": "n21321312",
+      "priority": "Priority"
+    },
+    {
+      "id": "edcf",
+      "title": "Important",
+      "description": "Do it now",
+      "time": "16:08",
+      "priority": "Find time for it"
+    }
+  ]
 }
