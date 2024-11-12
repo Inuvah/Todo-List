@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "./customHooks/useFetch";
 
 
@@ -22,6 +22,15 @@ export const TodoListComponent = () => {
   const { contents, isLoading, error } = useFetch(
     "http://localhost:8000/reminders"
   );
+
+  function handleDelete(id: any): undefined {
+    fetch("http://localhost:8000/reminders/" + id, {
+      method: "DELETE",
+    }).then(() => {
+      console.log(id);
+      console.log("http://localhost:8000/reminders/${id}");
+    });
+  }
   return (
     <>
       <div>
@@ -77,6 +86,7 @@ export const TodoListComponent = () => {
                 <p>{content.description}</p>
                 <p>{content.time}</p>
                 <p>{content.priority}</p>
+                <button onClick={() => handleDelete(content.id)}>Done</button>
               </div>
             )
           )}
