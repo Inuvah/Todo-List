@@ -1,11 +1,3 @@
 {
-  "reminders": [
-    {
-      "id": "a2ca",
-      "title": "Groceries",
-      "description": "Get tomatoeees",
-      "time": "NOW",
-      "priority": "Priority"
-    }
-  ]
+  "reminders": []
 }
