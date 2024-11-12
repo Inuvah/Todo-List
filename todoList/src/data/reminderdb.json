@@ -1,18 +1,3 @@
 {
-  "reminders": [
-    {
-      "id": "1e54",
-      "title": "wow",
-      "description": "WHAT",
-      "time": "n21321312",
-      "priority": "Priority"
-    },
-    {
-      "id": "edcf",
-      "title": "Important",
-      "description": "Do it now",
-      "time": "16:08",
-      "priority": "Find time for it"
-    }
-  ]
+  "reminders": []
 }
