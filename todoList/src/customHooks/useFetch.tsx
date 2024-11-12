@@ -32,7 +32,7 @@ export const useFetch = (url: RequestInfo | URL) => {
           setIsLoading(false);
           setError(err.message);
         });
-    }, 1000);
+    });
     //[] empty dependency array making sure it only runs on page load
   });
   //Return all data and values needed or nothing else can access it
