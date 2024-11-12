@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "./customHooks/useFetch";
 
-
 export const TodoListComponent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -56,8 +55,6 @@ export const TodoListComponent = () => {
             value={time}
             onChange={(e) => setTime(e.target.value)}
           />
-        
-
 
           <button>Add To List</button>
         </form>
@@ -95,5 +92,3 @@ export const TodoListComponent = () => {
   );
 };
 export default TodoListComponent;
-
-

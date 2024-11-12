@@ -34,7 +34,7 @@ export const useFetch = (url: RequestInfo | URL) => {
         });
     }, 1000);
     //[] empty dependency array making sure it only runs on page load
-  }, []);
+  });
   //Return all data and values needed or nothing else can access it
   return { contents, isLoading, error };
 };
