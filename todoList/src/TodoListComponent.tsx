@@ -93,7 +93,7 @@ export const TodoListComponent = () => {
                 <p>{content.description}</p>
                 <p>{content.time}</p>
                 <p>{content.priority}</p>
-                <button onSubmit={handleDelete(content.id)}>Done</button>
+                <button onClick={() => handleDelete(content.id)}>Done</button>
               </div>
             )
           )}
