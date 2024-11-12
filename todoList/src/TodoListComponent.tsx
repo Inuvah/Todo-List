@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useFetch from "./customHooks/useFetch";
 
+
 export const TodoListComponent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -46,17 +47,9 @@ export const TodoListComponent = () => {
             value={time}
             onChange={(e) => setTime(e.target.value)}
           />
-          <label>Priority:</label>
-          <select
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
-          >
-            <option value="Very Important!">Very Important!</option>
-            <option value="Important!">Important!</option>
-            <option value="Get it done">Get it done</option>
-            <option value="Find time for it">Find time for it</option>
-            <option value="Ehh whenever">Ehh whenever</option>
-          </select>
+        
+
+
           <button>Add To List</button>
         </form>
         {/*Using && like a if the left side must be true or it wont run the right*/}
@@ -92,3 +85,5 @@ export const TodoListComponent = () => {
   );
 };
 export default TodoListComponent;
+
+
