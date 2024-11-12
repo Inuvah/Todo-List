@@ -2,36 +2,33 @@ import React, { useEffect, useState } from "react";
 import useFetch from "./customHooks/useFetch";
 
 export const TodoListComponent = () => {
+  //UseStates to change POST content to reminderdb.json
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
   const [priority, setPriority] = useState("Priority");
-
+  //Handles POST of content to JSON
   function handleSubmit(e: { preventDefault: () => void }) {
     const todoListing = { title, description, time, priority };
     fetch("http://localhost:8000/reminders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(todoListing),
-    }).then(() => {
-      console.log("added");
-      console.log(contents);
     });
   }
+  //CustomHook for fetching and loading data from JSON
   const { contents, isLoading, error } = useFetch(
     "http://localhost:8000/reminders"
   );
-
+  //Handle DELETE when done
   function handleDelete(id: any): undefined {
     fetch("http://localhost:8000/reminders/" + id, {
       method: "DELETE",
-    }).then(() => {
-      console.log(id);
-      console.log("http://localhost:8000/reminders/${id}");
     });
   }
   return (
     <>
+      {/*Input forms*/}
       <div>
         <form onSubmit={handleSubmit}>
           <label>Title:</label>
@@ -69,6 +66,7 @@ export const TodoListComponent = () => {
             <p>Loading...</p>
           </div>
         )}
+        {/*Maps the JSON "like a foreach loop"*/}
         {contents &&
           contents.map(
             (content: {
