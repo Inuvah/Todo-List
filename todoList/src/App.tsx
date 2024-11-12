@@ -4,6 +4,10 @@ import PriorityOption from './PriorityOption';
 
 function App() {
   return (
+<>
+<div>
+<img src="todoList\src\assets\DoItLogo.png" />
+</div>
 
     <div className="todo-wrapper">
       <div className="todo-input">
@@ -15,6 +19,7 @@ function App() {
     </div>
     </div>
 </div>
+</>
   );
 }
 

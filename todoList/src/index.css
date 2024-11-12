@@ -4,6 +4,7 @@ body {
     background-color: #1D71A3;
     color: white;
     overflow: hidden;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 
@@ -36,15 +37,17 @@ box-shadow: 0px 5px 7px black(27, 27, 27);
     flex-direction: column;
     align-items: flex-start;
     margin-right: 25px;
+    padding-left: 20px;
 }
 
 .todo-input-item label{
     font-weight: bold;
     margin-bottom: 10px;
+    padding: 5px;
 }
 
 .todo-input-item input {
-    padding: 5px;
+    padding: 8px;
     border-radius: 10px;
     width: 100px;
 
@@ -60,4 +63,19 @@ button {
     border-radius: 30px;
     color: white;
     font-weight:bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 5px;
+    padding: 8px;
 }
+
+.priority-option {
+    select {
+        border-radius: 30px;
+    
+        padding: 8px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        border-width: 1.6px;
+    }
+}
+
+
