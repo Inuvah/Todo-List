@@ -1,7 +1,7 @@
 import "./App.css";
 import TodoListComponent from "./TodoListComponent";
 import PriorityOption from "./PriorityOption";
-import UserAuth from "./userAuth";
+import UserAuth from "./UserAuth";
 
 function App() {
   return (
@@ -10,7 +10,6 @@ function App() {
         <div className="todo-input">
           <div className="todo-input-item">
             <TodoListComponent />
-            <PriorityOption />
             {/* New components bliver imported here */}
           </div>
         </div>

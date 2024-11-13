@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "./customHooks/useFetch";
 
-export const TodoListComponent = () => {
+interface PriorityOptionProps {
+  priority: string;
+  onPriorityChange: (newPriority: string) => void;
+}
+
+export const TodoListComponent: React.FC<PriorityOptionProps> = ({
+  onPriorityChange,
+}) => {
   //UseStates to change POST content to reminderdb.json
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -26,6 +33,16 @@ export const TodoListComponent = () => {
       method: "DELETE",
     });
   }
+
+  const [selectedPriority, setSelectedPriority] = useState<string>(
+    priority || "Low"
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newPriority = e.target.value;
+    setSelectedPriority(newPriority);
+    setPriority(e.target.value);
+  };
   return (
     <>
       {/*Input forms*/}
@@ -52,6 +69,14 @@ export const TodoListComponent = () => {
             value={time}
             onChange={(e) => setTime(e.target.value)}
           />
+          <div className="priority-option">
+            <label>Priority: </label>
+            <select value={selectedPriority} onChange={handleChange}>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
 
           <button>Add To List</button>
         </form>
