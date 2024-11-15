@@ -14,7 +14,6 @@ function App() {
           </div>
         </div>
       </div>
-      <UserAuth />
     </>
   );
 }

@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "./customHooks/useFetch";
-
+import EditReminder from "./EditReminder";
 interface PriorityOptionProps {
   priority: string;
-  onPriorityChange: (newPriority: string) => void;
 }
 
-export const TodoListComponent: React.FC<PriorityOptionProps> = ({
-  onPriorityChange,
-}) => {
+export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
   //UseStates to change POST content to reminderdb.json
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
   const [priority, setPriority] = useState("Priority");
+  const [editVisible, setEditVisible] = useState("editWrapper");
   //Handles POST of content to JSON
   function handleSubmit(e: { preventDefault: () => void }) {
     const todoListing = { title, description, time, priority };
@@ -33,7 +31,10 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = ({
       method: "DELETE",
     });
   }
-
+  function handleEdit(id: any) {
+    if (editVisible !== "editShow") setEditVisible("editShow");
+    else setEditVisible("editWrapper");
+  }
   const [selectedPriority, setSelectedPriority] = useState<string>(
     priority || "Low"
   );
@@ -107,10 +108,21 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = ({
                 <p>{content.time}</p>
                 <p>{content.priority}</p>
                 <button onClick={() => handleDelete(content.id)}>Done</button>
+                <button onClick={() => handleEdit(content.id)}>Edit</button>
               </div>
             )
           )}
       </div>
+      <EditReminder
+        handleEdit={handleEdit}
+        handleSubmit={handleSubmit}
+        setTitle={setTitle}
+        setDescription={setDescription}
+        setTime={setTime}
+        selectedPriority={selectedPriority}
+        handleChange={handleChange}
+        editVisible={editVisible}
+      />
     </>
   );
 };
