@@ -1,7 +1,5 @@
 import "./App.css";
 import TodoListComponent from "./TodoListComponent";
-import PriorityOption from "./PriorityOption";
-import UserAuth from "./UserAuth";
 
 function App() {
   return (

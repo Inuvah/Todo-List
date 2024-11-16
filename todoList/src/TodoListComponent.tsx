@@ -12,6 +12,7 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
   const [time, setTime] = useState("");
   const [priority, setPriority] = useState("Priority");
   const [editVisible, setEditVisible] = useState("editWrapper");
+  const [editId, setEditId] = useState();
   //Handles POST of content to JSON
   function handleSubmit(e: { preventDefault: () => void }) {
     const todoListing = { title, description, time, priority };
@@ -34,6 +35,7 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
   function handleEdit(id: any) {
     if (editVisible !== "editShow") setEditVisible("editShow");
     else setEditVisible("editWrapper");
+    setEditId(id);
   }
   const [selectedPriority, setSelectedPriority] = useState<string>(
     priority || "Low"
@@ -122,6 +124,8 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
         selectedPriority={selectedPriority}
         handleChange={handleChange}
         editVisible={editVisible}
+        editId={editId}
+        handleDelete={handleDelete}
       />
     </>
   );
