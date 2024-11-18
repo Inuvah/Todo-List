@@ -13,6 +13,7 @@ export const EditReminder = (props: {
   priority: any;
   editId: any;
   handleDelete: any;
+  contentsEdit: any;
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -20,14 +21,10 @@ export const EditReminder = (props: {
   const [priority, setPriority] = useState("Priority");
   const [editFetch, setEditFetch] = useState(false);
   const todoListing = { title, description, time, priority };
-  const [contentsEdit, setContentsEdit] = useState();
   //Needs to get ID from function but also needs to be outside function scope
   //CustomHook for fetching and loading data from JSON
-  const { contents } = useFetchSpecific(
-    "http://localhost:8000/reminders/" + props.editId,
-    editFetch
-  );
   function handleEditChange(id: any) {
+    alert("handle change");
     if (editFetch === false) setEditFetch(true);
     else setEditFetch(false);
     const requestOptions = {
@@ -45,8 +42,8 @@ export const EditReminder = (props: {
       <div className={props.editVisible}>
         <div className="editContent">
           <form onSubmit={() => handleEditChange(props.editId)}>
-            {contents &&
-              contents.map(
+            {props.contentsEdit &&
+              props.contentsEdit.map(
                 (content: {
                   title: string | number | readonly string[] | undefined;
                   priority: any;

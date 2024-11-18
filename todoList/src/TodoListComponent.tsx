@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "./customHooks/useFetch";
+import useFetchSpecific from "./customHooks/useFetchSpecific";
 import EditReminder from "./EditReminder";
 interface PriorityOptionProps {
   priority: string;
@@ -13,6 +14,7 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
   const [priority, setPriority] = useState("Priority");
   const [editVisible, setEditVisible] = useState("editWrapper");
   const [editId, setEditId] = useState();
+  const [contentsEdit, setContentsEdit] = useState();
   //Handles POST of content to JSON
   function handleSubmit(e: { preventDefault: () => void }) {
     const todoListing = { title, description, time, priority };
@@ -33,9 +35,14 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
     });
   }
   function handleEdit(id: any) {
+    fetch("http://localhost:8000/reminders/" + id, {
+      method: "PULL",
+    });
     if (editVisible !== "editShow") setEditVisible("editShow");
     else setEditVisible("editWrapper");
     setEditId(id);
+    alert(id);
+    alert(contentsEdit);
   }
   const [selectedPriority, setSelectedPriority] = useState<string>(
     priority || "Low"
@@ -126,6 +133,7 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
         editVisible={editVisible}
         editId={editId}
         handleDelete={handleDelete}
+        contentsEdit={contentsEdit}
       />
     </>
   );
