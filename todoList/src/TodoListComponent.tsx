@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "./customHooks/useFetch";
 import useFetchSpecific from "./customHooks/useFetchSpecific";
-import EditReminder from "./EditReminder";
 interface PriorityOptionProps {
   priority: string;
 }
@@ -14,7 +13,7 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
   const [priority, setPriority] = useState("Priority");
   const [editVisible, setEditVisible] = useState("editWrapper");
   const [editId, setEditId] = useState();
-  const [contentsEdit, setContentsEdit] = useState();
+  const [contentsEdit, setContentsEdit] = useState([]);
   //Handles POST of content to JSON
   function handleSubmit(e: { preventDefault: () => void }) {
     const todoListing = { title, description, time, priority };
@@ -34,15 +33,29 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
       method: "DELETE",
     });
   }
-  function handleEdit(id: any) {
-    fetch("http://localhost:8000/reminders/" + id, {
-      method: "PULL",
-    });
-    if (editVisible !== "editShow") setEditVisible("editShow");
-    else setEditVisible("editWrapper");
+  function checker() {
+    console.log(editId, contentsEdit);
+  }
+  function handleEdit(id) {
     setEditId(id);
-    alert(id);
-    alert(contentsEdit);
+    if (editVisible !== "editShow") {
+      setEditVisible("editShow");
+      fetch("http://localhost:8000/reminders/" + id, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw Error("Could not fetch the data ):");
+          }
+          return res.json();
+        })
+        .then((data) => setContentsEdit(data))
+        .then(() => {
+          console.log(contentsEdit, id);
+        });
+      return { contentsEdit, id };
+    } else setEditVisible("editWrapper");
   }
   const [selectedPriority, setSelectedPriority] = useState<string>(
     priority || "Low"
@@ -122,19 +135,55 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
             )
           )}
       </div>
-      <EditReminder
-        handleEdit={handleEdit}
-        handleSubmit={handleSubmit}
-        setTitle={setTitle}
-        setDescription={setDescription}
-        setTime={setTime}
-        selectedPriority={selectedPriority}
-        handleChange={handleChange}
-        editVisible={editVisible}
-        editId={editId}
-        handleDelete={handleDelete}
-        contentsEdit={contentsEdit}
-      />
+      <div className={editVisible}>
+        {<button onClick={() => checker()}></button>}
+        {contentsEdit &&
+          contentsEdit.map(
+            (content: {
+              priority: any;
+              description: any;
+              time: any;
+              id: React.Key;
+              title: any;
+            }) => (
+              <div key={content.id}>
+                <form onSubmit={handleSubmit}>
+                  <label>Title:</label>
+                  <input
+                    type="text"
+                    required
+                    value={content.title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  <label>Description:</label>
+                  <input
+                    type="text"
+                    required
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                  <label>Time:</label>
+                  <input
+                    type="text"
+                    required
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                  />
+                  <div className="priority-option">
+                    <label>Priority: </label>
+                    <select value={selectedPriority} onChange={handleChange}>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                    </select>
+                  </div>
+
+                  <button>Add To List</button>
+                </form>
+              </div>
+            )
+          )}
+      </div>
     </>
   );
 };
