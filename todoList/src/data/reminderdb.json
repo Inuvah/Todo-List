@@ -1,11 +1,3 @@
 {
-  "reminders": [
-    {
-      "id": "40ab",
-      "title": "sad",
-      "description": "sad",
-      "time": "asd",
-      "priority": "Priority"
-    }
-  ]
+  "reminders": []
 }
