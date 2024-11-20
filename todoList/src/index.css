@@ -108,3 +108,21 @@ button {
     overflow-y: auto;
     box-shadow: 0px 5px 7px black(27, 27, 27);
 }
+
+.Logo {
+    height: auto;
+    top: 10px;
+    left: 10px;
+    width: auto; 
+    max-height: 100px;
+    max-width: 200px;   
+}
+
+.searchbar {
+    margin-left: 37%;
+    margin-bottom: 5%;
+
+}
+
+
+
