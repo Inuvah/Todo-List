@@ -6,14 +6,12 @@ interface PriorityOptionProps {
   priority: string;
 }
 
-
-
 export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
   //UseStates to change POST content to reminderdb.json
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
-  const [priority, setPriority] = useState("Priority");
+  const [priority, setPriority] = useState("Low");
   const [editVisible, setEditVisible] = useState("editWrapper");
   const [editId, setEditId] = useState();
   const [contentsEdit, setContentsEdit] = useState([]);
@@ -55,7 +53,6 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
     } else setEditVisible("editWrapper");
   }
   function handleEditSubmit(e: { preventDefault: () => void }) {
-    alert("edit is running");
     const todoListing = { title, description, time, priority };
     fetch("http://localhost:8000/reminders" + "/" + editId, {
       method: "PUT",
@@ -63,10 +60,8 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
       body: JSON.stringify(todoListing),
     })
       .then((response) => {
-        alert("Edit response");
         return response.json();
       })
-      .then((data) => {})
       .catch(() => {
         console.log("Edit submit error");
       });
@@ -184,7 +179,7 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
                     value={content.time}
                     onChange={(e) => {
                       content.time = e.target.value;
-                      setTitle(e.target.value);
+                      setTime(e.target.value);
                     }}
                   />
                   <div className="priority-option">
