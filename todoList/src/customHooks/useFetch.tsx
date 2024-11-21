@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 //Set data location as parameter so it can be reused
 export const useFetch = (url: RequestInfo | URL) => {
   //content from Json will be set to contents is null until
-  const [contents, setContents] = useState(null);
+  const [contents, setContents] = useState([]);
   //For checking if Json has been fetched if not display loading
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);

@@ -1,33 +1,48 @@
 /* Style HERE!!!!!!!*/
-
+/*Sebila styles*/
 body {
     background-color: #1D71A3;
     color: white;
     overflow: hidden;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
-
+.app-body {
+    min-width: 80vw;
+    overflow-y: auto;
+}
+.form-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.form-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 2vh;
+    flex-wrap: wrap;
+}
+.form-edit-body {
+    min-width: 70vw;
+}
 .todo-wrapper {
-background: white;
-color: black;
-border-radius: 30px;
-padding: 2%;
-width: fit-content;
-margin-left: auto;
-margin-right: auto;
-margin-top: 3%;
-max-height: 80vh;
-overflow-y: auto;
-box-shadow: 0px 5px 7px black(27, 27, 27);
-
+    background: white;
+    color: black;
+    border-radius: 30px;
+    padding: 2%;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0px 5px 7px black(27, 27, 27);
 }
 
 .todo-input {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid black;
     padding-bottom: 25px;
     margin-bottom: 25px;
 }
@@ -49,8 +64,7 @@ box-shadow: 0px 5px 7px black(27, 27, 27);
 .todo-input-item input {
     padding: 8px;
     border-radius: 10px;
-    width: 100px;
-
+    width: 200px;
 }
 
 .todo-input-item input:focus{
@@ -67,7 +81,15 @@ button {
     margin: 5px;
     padding: 8px;
 }
-
+.button-edit-close {
+    display: flex;
+    justify-content: end;
+    width: 80vw;
+        button {
+            height: 44px;
+            width: 44px;
+        }
+}
 .priority-option {
     select {
         border-radius: 30px;
@@ -108,6 +130,13 @@ button {
     overflow-y: auto;
     box-shadow: 0px 5px 7px black(27, 27, 27);
 }
+.searchFocusOut {
+    display: none;
+}
+
+.searchFocus {
+    display: block;
+}
 
 .Logo {
     height: auto;
@@ -119,10 +148,67 @@ button {
 }
 
 .searchbar {
-    margin-left: 37%;
-    margin-bottom: 5%;
-
+    margin:5% 0 5% 0;
+    display: flex;
+    justify-content: center;
 }
 
+.description {
+    input {
+        height: 5vh;
+        overflow-x: auto;
+    }
+}
 
+.time {
+    input {
+        width: 100px;
+    }
+}
 
+.title {
+    input {
+        
+    }
+}
+
+.fetched-content-container {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    .fetched-content {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .f-c {
+        padding-right: 10px;
+    }
+    .fetched-content-button {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+    }
+}
+
+.button-complete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    width: 32px;
+}
+
+.form-search {
+    display: flex;
+    justify-content: start;
+    input {
+        text-align: center;
+        width: 40vw;
+    }
+}

@@ -1,30 +1,35 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./index.css";
-
-class Search extends Component {
-  state = {
-    query: ""
-  };
-
-  handleInputChange = () => {
-    this.setState({
-      query: this.search.value
-    });
-  };
-
-  render() {
-    return (
+//Sebilas component
+const Search = (props: {
+  //pass in props from todolistcomponent
+  search;
+  setSearch;
+  setSearchActive;
+  searchActive;
+}) => {
+  return (
+    <>
       <form>
         <input
-          placeholder="Search..."
-          ref={input => (this.search = input)}
-          onChange={this.handleInputChange}
+          value={props.search}
+          onFocus={() => {
+            props.setSearch("");
+            props.setSearchActive("searchFocusOut");
+          }}
+          onBlur={() => {
+            if (props.search === "") props.setSearch("Search...");
+            if (props.search === "") props.setSearchActive("searchFocus");
+          }}
+          //Updates the search state to the searchbars input value
+          //which is updated when searching
+          onChange={(e) => {
+            props.setSearch(e.target.value);
+          }}
         />
-        <p>{this.state.query}</p>
       </form>
-    );
-  }
-  
-}
+    </>
+  );
+};
 
 export default Search;
