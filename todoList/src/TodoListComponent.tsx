@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "./customHooks/useFetch";
 import useFetchSpecific from "./customHooks/useFetchSpecific";
+import Reminderdb from "./data/reminderdb.json";
 interface PriorityOptionProps {
   priority: string;
 }
-
-
 
 export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
   //UseStates to change POST content to reminderdb.json
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
-  const [priority, setPriority] = useState("Priority");
+  const [priority, setPriority] = useState("Low");
   const [editVisible, setEditVisible] = useState("editWrapper");
   const [editId, setEditId] = useState();
   const [contentsEdit, setContentsEdit] = useState([]);
@@ -29,6 +28,15 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
   const { contents, isLoading, error } = useFetch(
     "http://localhost:8000/reminders"
   );
+  const { contentsSpecific } = useFetchSpecific(
+    "http://localhost:8000/reminders",
+    editVisible,
+    title,
+    description,
+    time,
+    priority,
+    editId
+  );
   //Handle DELETE when done
   function handleDelete(id: any): undefined {
     fetch("http://localhost:8000/reminders/" + id, {
@@ -36,28 +44,27 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
     });
   }
   function checker() {
-    console.log(editId, contentsEdit);
+    console.log(contents);
   }
   function handleEdit(id) {
     setEditId(id);
     if (editVisible !== "editShow") {
       setEditVisible("editShow");
-      fetch("http://localhost:8000/reminders/" + id, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((res) => {
-          if (!res.ok) {
-            throw Error("Could not fetch the data ):");
-          }
-          return res.json();
-        })
-        .then((data) => setContentsEdit(data))
-        .then(() => {
-          console.log(contentsEdit, id);
-        });
-      return { contentsEdit, id };
     } else setEditVisible("editWrapper");
+  }
+  function handleEditSubmit(e: { preventDefault: () => void }) {
+    const todoListing = { title, description, time, priority };
+    fetch("http://localhost:8000/reminders" + "/" + editId, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(todoListing),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .catch(() => {
+        console.log("Edit submit error");
+      });
   }
   const [selectedPriority, setSelectedPriority] = useState<string>(
     priority || "Low"
@@ -131,6 +138,7 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
                 <p>{content.description}</p>
                 <p>{content.time}</p>
                 <p>{content.priority}</p>
+
                 <button onClick={() => handleDelete(content.id)}>Done</button>
                 <button onClick={() => handleEdit(content.id)}>Edit</button>
               </div>
@@ -139,37 +147,40 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
       </div>
       <div className={editVisible}>
         {<button onClick={() => checker()}></button>}
-        {contentsEdit &&
-          contentsEdit.map(
+        {contentsSpecific &&
+          contentsSpecific.map(
             (content: {
-              priority: any;
+              priority: String;
               description: any;
               time: any;
               id: React.Key;
               title: any;
             }) => (
               <div key={content.id}>
-                <form onSubmit={handleSubmit}>
-                  <label>Title:</label>
+                <form onSubmit={handleEditSubmit}>
                   <input
                     type="text"
-                    required
                     value={content.title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => {
+                      content.title = e.target.value;
+                      setTitle(e.target.value);
+                    }}
                   />
-                  <label>Description:</label>
                   <input
                     type="text"
-                    required
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={content.description}
+                    onChange={(e) => {
+                      content.description = e.target.value;
+                      setDescription(e.target.value);
+                    }}
                   />
-                  <label>Time:</label>
                   <input
                     type="text"
-                    required
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
+                    value={content.time}
+                    onChange={(e) => {
+                      content.time = e.target.value;
+                      setTime(e.target.value);
+                    }}
                   />
                   <div className="priority-option">
                     <label>Priority: </label>
@@ -179,8 +190,7 @@ export const TodoListComponent: React.FC<PriorityOptionProps> = () => {
                       <option value="High">High</option>
                     </select>
                   </div>
-
-                  <button>Add To List</button>
+                  <button>Done</button>
                 </form>
               </div>
             )
